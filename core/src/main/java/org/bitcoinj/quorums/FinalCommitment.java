@@ -140,11 +140,11 @@ public class FinalCommitment extends SpecialTxPayload {
             return false;
 
         if(countValidMembers() < llmqParameters.minSize) {
-            log.error("invalid validMembers count. validMembersCount={1}", countValidMembers());
+            log.error("invalid validMembers count. validMembersCount={}", countValidMembers());
             return false;
         }
         if (countSigners() < llmqParameters.minSize) {
-            log.error("invalid signers count. signersCount={1}", countSigners());
+            log.error("invalid signers count. signersCount={}", countSigners());
             return false;
         }
         if (!quorumPublicKey.isValid()) {
@@ -221,11 +221,11 @@ public class FinalCommitment extends SpecialTxPayload {
 
     public boolean verifyNull()
     {
-        if (params.getLlmqs().containsKey(llmqType)) {
-            log.error("invalid llmqType={1}", llmqType);
+        if (params.getLlmqs().containsKey(LLMQParameters.LLMQType.fromValue(llmqType))) {
+            log.error("invalid llmqType={}", llmqType);
             return false;
         }
-        LLMQParameters llmqParameters = params.getLlmqs().get(llmqType);
+        LLMQParameters llmqParameters = params.getLlmqs().get(LLMQParameters.LLMQType.fromValue(llmqType));
 
         if (!isNull() || !verifySizes(llmqParameters)) {
             return false;
@@ -236,11 +236,11 @@ public class FinalCommitment extends SpecialTxPayload {
 
     public boolean verifySizes(LLMQParameters llmqParameters) {
         if(signers.size() != llmqParameters.size) {
-            log.error("invalid signers.size: {1} != {2}", signers.size(), llmqParameters.size);
+            log.error("invalid signers.size: {} != {}", signers.size(), llmqParameters.size);
             return false;
         }
         if(validMembers.size() != llmqParameters.size) {
-            log.error("invalid validMembers.size: {1} != {2}", validMembers.size(), llmqParameters.size);
+            log.error("invalid validMembers.size: {} != {}", validMembers.size(), llmqParameters.size);
             return false;
         }
         return true;
