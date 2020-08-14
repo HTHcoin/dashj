@@ -89,4 +89,9 @@ public class InstantSendLock extends Message {
 
         return getHash().equals(islock.getHash());
     }
+
+    @Override
+    public int hashCode() {
+        return getHash().hashCode();
+    }
 }
